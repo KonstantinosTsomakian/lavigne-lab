@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Say hi · Lavigne Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+  <main>
+    <div class="container">
+      <section class="page-head">
+        <div>
+          <h1>Come <span class="squiggle">say hi</span></h1>
+          <p>Questions about our work, collaboration ideas, or want to join the lab? We'd love to hear from you. We're at IMBB-FORTH in Heraklion, Crete.</p>
+        </div>
+        <svg viewBox="0 0 170 170" aria-hidden="true">
+          <circle cx="85" cy="85" r="78" fill="var(--sun-soft)"/>
+          <circle cx="128" cy="44" r="16" fill="#f4b942"/>
+          <path d="M20 128q32-14 64 0t66 0" fill="none" stroke="#4d9de0" stroke-width="6" stroke-linecap="round"/>
+          <path d="M20 144q32-14 64 0t66 0" fill="none" stroke="#2a9d8f" stroke-width="6" stroke-linecap="round"/>
+          <path d="M80 110s-26-24-26-44a26 26 0 0 1 52 0c0 20-26 44-26 44z" fill="#f2705b"/>
+          <circle cx="80" cy="66" r="10" fill="#fff"/>
+        </svg>
+      </section>
+      <div class="contact-grid">
+        <div class="card">
+          <h3>Ways to reach us</h3>
+          <ul class="contact-list" id="contact-details"></ul>
+          <a class="btn" href="https://www.imbb.forth.gr/en/contact/directions/" target="_blank" rel="noopener">🗺️ How to get to IMBB</a>
+        </div>
+        <iframe class="map" title="Map of IMBB-FORTH, Heraklion"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=25.0600%2C35.2980%2C25.0820%2C35.3120&amp;layer=mapnik&amp;marker=35.3051%2C25.0717"
+          loading="lazy"></iframe>
+      </div>
+    </div>
+  </main>
+  <footer id="site-footer"></footer>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lavigne Lab · IMBB-FORTH</title>
+  <meta name="description" content="Lavigne Lab at IMBB-FORTH, Crete: how cells switch genes on, keep their DNA safe, and decide what to become.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="blob" style="width:340px;height:340px;background:var(--coral-soft);top:20px;right:8%"></div>
+      <div class="blob" style="width:260px;height:260px;background:var(--teal-soft);bottom:0;left:4%"></div>
+      <div class="container hero-grid">
+        <div>
+          <span class="pill">🧬 Gene Regulation &amp; Epigenetics · IMBB-FORTH, Crete</span>
+          <h1>Why does RNA Pol II <span class="squiggle">hit pause</span>?</h1>
+          <p class="lead">Hi, we're the Lavigne Lab! We're curious about how cells switch their genes on, how they keep their DNA in one piece when things get stressful, and how all of that decides what a cell becomes. We mix wet-lab experiments with a lot of sequencing and code.</p>
+          <a class="btn" href="publications.html">📄 See our papers</a>
+          <a class="btn ghost" href="members.html">👋 Meet the people</a>
+        </div>
+
+        <div class="hero-art">
+          <svg viewBox="0 0 480 300" role="img" aria-label="Cartoon of RNA polymerase II paused just after a gene's start site, with nucleosomes upstream">
+            <!-- DNA -->
+            <path d="M10 200 C 40 180, 70 220, 100 200 S 160 180, 190 200 S 250 220, 280 200 S 340 180, 370 200 S 430 220, 470 200" fill="none" stroke="#2a9d8f" stroke-width="6" stroke-linecap="round"/>
+            <path d="M10 200 C 40 220, 70 180, 100 200 S 160 220, 190 200 S 250 180, 280 200 S 340 220, 370 200 S 430 180, 470 200" fill="none" stroke="#f2705b" stroke-width="6" stroke-linecap="round"/>
+            <!-- nucleosomes -->
+            <g>
+              <circle cx="70" cy="200" r="30" fill="#ece5f5" stroke="#7b5ea7" stroke-width="3"/>
+              <path d="M42 190 Q70 170 98 190 M42 210 Q70 230 98 210" fill="none" stroke="#7b5ea7" stroke-width="2.5"/>
+              <circle cx="150" cy="200" r="30" fill="#ece5f5" stroke="#7b5ea7" stroke-width="3"/>
+              <path d="M122 190 Q150 170 178 190 M122 210 Q150 230 178 210" fill="none" stroke="#7b5ea7" stroke-width="2.5"/>
+              <!-- histone tail marks -->
+              <circle cx="58" cy="165" r="6" fill="#f4b942"/><line x1="64" y1="174" x2="60" y2="170" stroke="#7b5ea7" stroke-width="2"/>
+              <circle cx="162" cy="162" r="6" fill="#f2705b"/><line x1="156" y1="174" x2="160" y2="167" stroke="#7b5ea7" stroke-width="2"/>
+              <text x="70" y="255" text-anchor="middle" font-family="Nunito" font-weight="700" font-size="12" fill="#7b5ea7">nucleosomes</text>
+            </g>
+            <!-- TSS arrow -->
+            <path d="M232 200 V150 H262" fill="none" stroke="#2a2622" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M256 142 L266 150 L256 158" fill="none" stroke="#2a2622" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <text x="232" y="255" text-anchor="middle" font-family="Nunito" font-weight="700" font-size="12" fill="currentColor" opacity=".7">TSS</text>
+            <!-- RNA -->
+            <path class="rna" d="M300 160 C 290 120, 260 110, 250 80" fill="none" stroke="#f4b942" stroke-width="5" stroke-linecap="round"/>
+            <!-- Pol II -->
+            <g class="pol2">
+              <ellipse cx="320" cy="190" rx="44" ry="38" fill="#f2705b"/>
+              <ellipse cx="306" cy="176" rx="12" ry="7" fill="#fff" opacity=".35"/>
+              <circle cx="308" cy="186" r="4.5" fill="#2a2622"/><circle cx="332" cy="186" r="4.5" fill="#2a2622"/>
+              <path d="M310 202 q10 7 20 0" fill="none" stroke="#2a2622" stroke-width="3" stroke-linecap="round"/>
+              <text x="320" y="246" text-anchor="middle" font-family="Fraunces" font-weight="700" font-size="15" fill="#f2705b">Pol II</text>
+            </g>
+            <!-- speech bubble -->
+            <g class="pause-bubble">
+              <rect x="330" y="48" width="130" height="48" rx="18" fill="#fff" stroke="#efe4d6" stroke-width="2"/>
+              <path d="M352 94 L344 112 L370 95" fill="#fff" stroke="#efe4d6" stroke-width="2" stroke-linejoin="round"/>
+              <rect x="352" y="92" width="20" height="5" fill="#fff"/>
+              <text x="395" y="78" text-anchor="middle" font-family="Nunito" font-weight="800" font-size="15" fill="#2a2622">brb, pausing ☕</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WE STUDY -->
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 C 240 0, 480 60, 720 30 S 1200 0, 1440 30 V60 H0Z" fill="var(--surface)"/></svg>
+    <section class="band">
+      <div class="container">
+        <h2>What we're curious about</h2>
+        <p class="section-sub">Three big questions keep us busy (and occasionally up at night).</p>
+        <div class="grid">
+          <div class="card reveal">
+            <div class="icon-badge bg-coral">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 32h40"/><ellipse cx="22" cy="28" rx="9" ry="8" fill="currentColor" opacity=".25"/><ellipse cx="22" cy="28" rx="9" ry="8"/><path d="M28 21c4-6 9-8 14-8"/><path d="M36 12l6 1-2 6"/></svg>
+            </div>
+            <h3>Go, stop, go again</h3>
+            <p>How RNA polymerase II starts, pauses and takes off along genes, both protein-coding ones and the non-coding kind (lncRNAs, enhancer RNAs).</p>
+          </div>
+          <div class="card reveal">
+            <div class="icon-badge bg-teal">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10z" fill="currentColor" opacity=".2"/><path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10z"/><path d="M18 16c8 4 4 12 12 16M30 16c-8 4-4 12-12 16"/></svg>
+            </div>
+            <h3>Keeping DNA in one piece</h3>
+            <p>What cells do to protect their genome when the environment or their own genetics put it under stress, and how transcription and DNA repair talk to each other.</p>
+          </div>
+          <div class="card reveal">
+            <div class="icon-badge bg-plum">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="10" r="5" fill="currentColor" opacity=".25"/><circle cx="10" cy="36" r="5"/><circle cx="24" cy="38" r="5"/><circle cx="38" cy="36" r="5"/><circle cx="24" cy="10" r="5"/><path d="M21 14L12 31M24 15v18M27 14l9 17M15 36h4M29 36h4"/></svg>
+            </div>
+            <h3>Networks that pick a fate</h3>
+            <p>How gene regulatory networks steer a cell toward what it becomes, in normal development and when things go wrong in disease.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0 H1440 V30 C 1200 60, 960 0, 720 30 S 240 60, 0 30Z" fill="var(--surface)"/></svg>
+
+    <!-- HOW WE WORK -->
+    <section>
+      <div class="container">
+        <h2>How we work</h2>
+        <p class="section-sub">From the bench to the laptop and back again. Wet lab and dry lab, all under one roof.</p>
+        <div class="pipeline">
+          <div class="step reveal">
+            <div class="icon-badge bg-coral"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 4h12M20 4v14L8 40a3 3 0 0 0 3 4h26a3 3 0 0 0 3-4L28 18V4"/><path d="M13 32h22" /><circle cx="20" cy="37" r="2" fill="currentColor"/><circle cx="28" cy="35" r="1.5" fill="currentColor"/></svg></div>
+            <h3>Experiments</h3><p>Human cells and mouse models, followed in time and space ("4D" biochemistry)</p>
+          </div>
+          <div class="step reveal">
+            <div class="icon-badge bg-teal"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M8 40V28M16 40V14M24 40V22M32 40V8M40 40V30"/></svg></div>
+            <h3>Sequencing</h3><p>ChIP, ATAC, CUT&amp;RUN, Hi-C and friends, plus single-cell assays</p>
+          </div>
+          <div class="step reveal">
+            <div class="icon-badge bg-sun"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="36" height="24" rx="3"/><path d="M2 40h44M16 17l-4 4 4 4M32 17l4 4-4 4M26 15l-4 12"/></svg></div>
+            <h3>Code &amp; models</h3><p>Bioinformatics, simulations and machine learning on our data and public data</p>
+          </div>
+          <div class="step reveal">
+            <div class="icon-badge bg-plum"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 36h12M20 42h8M24 4a13 13 0 0 0-8 23c1 1 2 3 2 5v4h12v-4c0-2 1-4 2-5A13 13 0 0 0 24 4z"/></svg></div>
+            <h3>Aha!</h3><p>The rules behind gene regulation, and where they break in disease</p>
+          </div>
+        </div>
+
+        <div class="cloud" aria-label="Techniques we use">
+          <span class="chip wet">IP</span><span class="chip wet">RIP</span><span class="chip wet">ChIP-western</span><span class="chip wet">DNA damage &amp; repair mapping</span>
+          <span class="chip seq">ChIP-seq</span><span class="chip seq">ATAC-seq</span><span class="chip seq">CUT&amp;RUN</span><span class="chip seq">4C-seq</span><span class="chip seq">Hi-C</span><span class="chip seq">EU-seq</span><span class="chip seq">mRNA-seq</span><span class="chip seq">QuantSeq</span>
+          <span class="chip sc">scRNA-seq</span><span class="chip sc">scATAC-seq</span>
+          <span class="chip dry">Bioinformatics</span><span class="chip dry">Simulations</span><span class="chip dry">Network inference</span>
+        </div>
+        <div class="legend"><span class="wet">bench</span><span class="seq">sequencing</span><span class="sc">single-cell</span><span class="dry">computational</span></div>
+      </div>
+    </section>
+
+    <!-- NUMBERS -->
+    <section style="padding-top:0">
+      <div class="container">
+        <h2>The lab, in numbers</h2>
+        <div class="stats" id="stats"></div>
+      </div>
+    </section>
+
+    <!-- NEWS + PAPERS -->
+    <section style="padding-top:0">
+      <div class="container">
+        <h2>What's new</h2>
+        <div id="home-news"></div>
+      </div>
+    </section>
+    <section style="padding-top:0">
+      <div class="container">
+        <h2>Fresh off the press</h2>
+        <p class="section-sub">Our most recent papers. There are more on the <a href="publications.html">papers page</a>.</p>
+        <div id="home-pubs"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
