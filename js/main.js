@@ -2,13 +2,13 @@
 (function () {
   const pages = [
     ["index.html", "Home"],
-    ["publications.html", "Papers"],
-    ["members.html", "People"],
+    ["publications.html", "Publications"],
+    ["members.html", "Members"],
     ["news.html", "News"],
-    ["contact.html", "Say hi"],
+    ["contact.html", "Contact"],
   ];
   const current = location.pathname.split("/").pop() || "index.html";
-  const PALETTE = ["#f2705b", "#2a9d8f", "#f4b942", "#7b5ea7", "#4d9de0", "#e07a9b"];
+  const PALETTE = ["#1f6f78", "#c8553d", "#d4a03a", "#5e548e", "#3f7fbf", "#6a8f5a"];
 
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const initials = (name) => {
@@ -19,10 +19,10 @@
 
   // Little helix logo
   const LOGO = `<svg viewBox="0 0 40 40" aria-hidden="true">
-    <circle cx="20" cy="20" r="19" fill="#fde6e1"/>
-    <path d="M12 6 C 28 14, 12 26, 28 34" fill="none" stroke="#f2705b" stroke-width="3" stroke-linecap="round"/>
-    <path d="M28 6 C 12 14, 28 26, 12 34" fill="none" stroke="#2a9d8f" stroke-width="3" stroke-linecap="round"/>
-    <path d="M15 11h10M15 29h10M17 20h6" stroke="#f4b942" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+    <circle cx="20" cy="20" r="19" fill="#e1eef0"/>
+    <path d="M12 6 C 28 14, 12 26, 28 34" fill="none" stroke="#c8553d" stroke-width="3" stroke-linecap="round"/>
+    <path d="M28 6 C 12 14, 28 26, 12 34" fill="none" stroke="#1f6f78" stroke-width="3" stroke-linecap="round"/>
+    <path d="M15 11h10M15 29h10M17 20h6" stroke="#d4a03a" stroke-width="2.5" stroke-linecap="round"/></svg>`;
 
   // Header
   const header = document.getElementById("site-header");
@@ -43,7 +43,7 @@
     footer.className = "site-footer";
     footer.innerHTML = `
       <div class="container">
-        <div>Made with 🧬 and ☕ at <a href="${LAB.instituteUrl}">IMBB-FORTH</a>, Heraklion · © ${new Date().getFullYear()} ${esc(LAB.name)}</div>
+        <div>© ${new Date().getFullYear()} ${esc(LAB.name)} · <a href="${LAB.instituteUrl}">${esc(LAB.institute)}</a>, Heraklion, Greece</div>
         <div><a href="mailto:${LAB.email}">${esc(LAB.email)}</a></div>
       </div>`;
   }
@@ -72,20 +72,17 @@
         <div class="meta">
           <span class="badge" style="background:${c}22;color:${c}">${esc(p.journal)}</span>
           <span>${p.details ? esc(p.details) + " · " : ""}${p.year}</span>
-          <a href="${link}" target="_blank" rel="noopener">${p.doi ? "DOI →" : "Find it on PubMed →"}</a>
+          <a href="${link}" target="_blank" rel="noopener">${p.doi ? "DOI" : "PubMed"} ↗</a>
         </div>
       </div></div>`;
   };
 
-  // Empty-state illustration: a sleepy nucleosome
+  // Empty-state: neutral icon + message
   const sleepy = (msg, sub) => `<div class="empty-state">
-    <svg viewBox="0 0 160 160" aria-hidden="true">
-      <circle cx="80" cy="88" r="46" fill="#fde6e1"/>
-      <path d="M30 70 C 60 40, 100 40, 130 70 M30 100 C 60 130, 100 130, 130 100" fill="none" stroke="#2a9d8f" stroke-width="5" stroke-linecap="round"/>
-      <path d="M62 84 q6 6 12 0 M86 84 q6 6 12 0" fill="none" stroke="#2a2622" stroke-width="3" stroke-linecap="round"/>
-      <path d="M72 102 q8 5 16 0" fill="none" stroke="#2a2622" stroke-width="3" stroke-linecap="round"/>
-      <text x="118" y="40" font-family="Fraunces, serif" font-size="20" font-weight="700" fill="#f4b942">z</text>
-      <text x="132" y="26" font-family="Fraunces, serif" font-size="14" font-weight="700" fill="#f4b942">z</text>
+    <svg viewBox="0 0 72 72" aria-hidden="true">
+      <circle cx="36" cy="36" r="34" fill="var(--teal-soft)"/>
+      <rect x="22" y="20" width="28" height="34" rx="4" fill="none" stroke="var(--teal)" stroke-width="2.5"/>
+      <path d="M28 30h16M28 37h16M28 44h10" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round"/>
     </svg>
     <h3>${msg}</h3><p>${sub}</p></div>`;
 
@@ -96,8 +93,8 @@
   if (homeNews) {
     const items = [...NEWS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
     homeNews.innerHTML = items.length
-      ? `<div class="grid">${items.map((n) => `<div class="card reveal"><span class="pill">📣 ${fmtDate(n.date)}</span><h3>${esc(n.title)}</h3><p>${n.body}</p></div>`).join("")}</div>`
-      : sleepy("Nothing new… yet!", "The news page is having a little nap. Fresh papers and lab stories are on their way.");
+      ? `<div class="grid">${items.map((n) => `<div class="card reveal"><span class="pill">${fmtDate(n.date)}</span><h3>${esc(n.title)}</h3><p>${n.body}</p></div>`).join("")}</div>`
+      : sleepy("No announcements yet", "Lab news, publications and events will be posted here.");
   }
   const stats = document.getElementById("stats");
   if (stats) {
@@ -105,9 +102,9 @@
     const nTech = document.querySelectorAll(".cloud .chip").length;
     const items = [
       [PUBLICATIONS.length, "selected papers", "bg-coral"],
-      [journals.length, "different journals", "bg-teal"],
-      [nTech, "techniques in our toolbox", "bg-sun"],
-      [`${Math.min(...years)}–${Math.max(...years)}`, "years of papers shown here", "bg-plum"],
+      [journals.length, "journals", "bg-teal"],
+      [nTech, "experimental and computational methods", "bg-sun"],
+      [`${Math.min(...years)}–${Math.max(...years)}`, "publication years shown", "bg-plum"],
     ];
     stats.innerHTML = items.map(([v, l, c]) => `<div class="stat ${c} reveal"><b${String(v).length > 4 ? ' style="font-size:1.9rem;white-space:nowrap"' : ""}>${v}</b><span>${l}</span></div>`).join("");
   }
@@ -117,11 +114,11 @@
   if (piEl) {
     const pi = MEMBERS.find((m) => m.group === "pi");
     if (pi) piEl.innerHTML = `<div class="card pi-card reveal">${avatar(pi)}<div>
-        <span class="pill">👋 The boss (but a nice one)</span>
+        <span class="pill">Principal Investigator</span>
         <h2 style="margin:.2rem 0">${esc(pi.name)}</h2>
         <p class="role" style="color:var(--coral);font-weight:700">${esc(pi.role)}</p>
         <p>${esc(pi.bio)}</p>
-        ${pi.email ? `<p><a href="mailto:${esc(pi.email)}">✉️ ${esc(pi.email)}</a></p>` : ""}
+        ${pi.email ? `<p><a href="mailto:${esc(pi.email)}">${esc(pi.email)}</a></p>` : ""}
       </div></div>`;
   }
   function memberLinks(m) {
@@ -144,14 +141,14 @@
     const list = MEMBERS.filter((m) => m.group === group);
     el.innerHTML = list.length
       ? `<div class="grid">${list.map((m) => `<div class="card member reveal">${avatar(m)}<h3>${esc(m.name)}</h3><p class="role">${esc(m.role)}</p>
-          ${m.bio ? `<p>${esc(m.bio)}</p>` : ""}${m.now ? `<p>🚀 ${esc(m.now)}</p>` : ""}
+          ${m.bio ? `<p>${esc(m.bio)}</p>` : ""}${m.now ? `<p>${esc(m.now)}</p>` : ""}
           ${m.tags?.length ? `<div class="member-tags">${m.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
           ${m.email ? `<p><a href="mailto:${esc(m.email)}">${esc(m.email)}</a></p>` : ""}
           ${memberLinks(m)}</div>`).join("")}</div>`
       : sleepy(msg, sub);
   };
-  renderGroup("members-current", "current", "Faces coming soon!", "We're still taking our good-side photos. Check back shortly to meet everyone.");
-  renderGroup("members-alumni", "alumni", "No alumni listed yet", "Everyone who's passed through the lab will get a shout-out here.");
+  renderGroup("members-current", "current", "Member profiles coming soon", "Profiles of current lab members will be added here.");
+  renderGroup("members-alumni", "alumni", "No alumni listed yet", "Former lab members will be listed here.");
 
   // ---------- Papers ----------
   const pubList = document.getElementById("pub-list");
@@ -171,7 +168,7 @@
       filtered.forEach((p) => (byYear[p.year] = byYear[p.year] || []).push(p));
       pubList.innerHTML = Object.keys(byYear).sort((a, b) => b - a)
         .map((yr) => `<h2 class="year-head">${yr}</h2>${byYear[yr].map(pubHTML).join("")}`).join("")
-        || sleepy("No matches 🤔", "Try a different word: an author, a journal, or something like “repair”.");
+        || sleepy("No matching publications", "Try a different search term, such as an author, journal or keyword.");
       observe();
     };
     search.addEventListener("input", render);
@@ -220,7 +217,7 @@
       a0 = a1 + 0.03;
     });
     el.innerHTML = `<div class="donut-wrap"><svg viewBox="0 0 150 150" role="img" aria-label="Papers by journal">${paths}
-      <text x="75" y="74" text-anchor="middle" style="font-family:Fraunces,serif;font-size:26px;font-weight:700;fill:var(--text)">${total}</text>
+      <text x="75" y="74" text-anchor="middle" style="font-family:'Source Serif 4',serif;font-size:26px;font-weight:600;fill:var(--text)">${total}</text>
       <text x="75" y="92" text-anchor="middle">papers</text></svg>
       <ul class="donut-legend">${counts.map(([j, n]) => `<li><i style="background:${jColor(j)}"></i>${esc(j)} <b>&nbsp;${n}</b></li>`).join("")}</ul></div>`;
   }
@@ -236,7 +233,7 @@
             <div class="date-badge"><small>${d.toLocaleDateString("en-GB", { month: "short" })}</small><b>${d.getDate()}</b><small>${d.getFullYear()}</small></div>
             <div class="card"><h3>${esc(n.title)}</h3><div>${n.body}</div></div></article>`;
         }).join("")
-      : sleepy("It's quiet in here…", "No news posted yet. When something exciting happens (a paper, a talk, a new lab member, cake), it'll show up here first.");
+      : sleepy("No announcements yet", "News about publications, talks, grants and lab members will be posted here.");
   }
 
   // ---------- Contact ----------
@@ -249,10 +246,10 @@
       pin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>`,
     };
     contact.innerHTML = `
-      <li><span class="icon-badge bg-coral">${ic.mail}</span><div><small>Email (fastest!)</small><a href="mailto:${LAB.email}">${esc(LAB.email)}</a></div></li>
+      <li><span class="icon-badge bg-coral">${ic.mail}</span><div><small>Email</small><a href="mailto:${LAB.email}">${esc(LAB.email)}</a></div></li>
       <li><span class="icon-badge bg-teal">${ic.phone}</span><div><small>Phone</small><a href="tel:${LAB.phone.replace(/\s/g, "")}">${esc(LAB.phone)}</a></div></li>
-      <li><span class="icon-badge bg-sun">${ic.fax}</span><div><small>Fax (if you're feeling retro)</small>${esc(LAB.fax)}</div></li>
-      <li><span class="icon-badge bg-plum">${ic.pin}</span><div><small>Find us</small>${LAB.address.map(esc).join("<br>")}</div></li>`;
+      <li><span class="icon-badge bg-sun">${ic.fax}</span><div><small>Fax</small>${esc(LAB.fax)}</div></li>
+      <li><span class="icon-badge bg-plum">${ic.pin}</span><div><small>Address</small>${LAB.address.map(esc).join("<br>")}</div></li>`;
   }
 
   function fmtDate(d) {

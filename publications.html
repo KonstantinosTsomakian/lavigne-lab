@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Papers · Lavigne Lab</title>
+  <title>Publications · Lavigne Lab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,33 +14,33 @@
     <div class="container">
       <section class="page-head">
         <div>
-          <h1>Our <span class="squiggle">papers</span></h1>
-          <p>A selection of what we've published. Want absolutely everything? Here's the full list on <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Lavigne+MD&amp;sort=date" target="_blank" rel="noopener">PubMed</a>.</p>
+          <h1>Publications</h1>
+          <p>Selected publications from the lab. A complete, up-to-date list is available on <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Lavigne+MD&amp;sort=date" target="_blank" rel="noopener">PubMed</a>.</p>
         </div>
         <svg viewBox="0 0 170 170" aria-hidden="true">
           <circle cx="85" cy="85" r="78" fill="var(--sun-soft)"/>
-          <rect x="48" y="34" width="66" height="88" rx="8" fill="#fff" stroke="#f4b942" stroke-width="4" transform="rotate(-8 81 78)"/>
-          <rect x="58" y="44" width="66" height="88" rx="8" fill="#fff" stroke="#f2705b" stroke-width="4"/>
-          <path d="M70 62h42M70 74h42M70 86h30M70 98h36" stroke="#2a9d8f" stroke-width="4" stroke-linecap="round"/>
-          <circle cx="118" cy="122" r="16" fill="#2a9d8f"/><path d="M111 122l5 5 9-10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="48" y="34" width="66" height="88" rx="8" fill="#fff" stroke="#d4a03a" stroke-width="4" transform="rotate(-8 81 78)"/>
+          <rect x="58" y="44" width="66" height="88" rx="8" fill="#fff" stroke="#c8553d" stroke-width="4"/>
+          <path d="M70 62h42M70 74h42M70 86h30M70 98h36" stroke="#1f6f78" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="118" cy="122" r="16" fill="#1f6f78"/><path d="M111 122l5 5 9-10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </section>
 
       <div class="charts">
         <div class="card chart-card">
-          <h3>📈 Papers per year</h3>
-          <p style="margin-bottom:.8rem">Each block is one paper, coloured by journal. Hover for the title, click to jump to that year.</p>
+          <h3>Publications per year</h3>
+          <p style="margin-bottom:.8rem">Each block is one publication, coloured by journal. Select a bar to filter by year.</p>
           <div class="chart" id="chart-years"></div>
         </div>
         <div class="card chart-card">
-          <h3>🍩 Where they landed</h3>
-          <p style="margin-bottom:.8rem">Papers by journal</p>
+          <h3>By journal</h3>
+          <p style="margin-bottom:.8rem">Distribution of selected publications</p>
           <div class="chart" id="chart-journals"></div>
         </div>
       </div>
 
       <div class="pub-tools">
-        <input id="pub-search" type="search" placeholder="🔍 Search by title, author or journal…" aria-label="Search publications">
+        <input id="pub-search" type="search" placeholder="Search by title, author or journal" aria-label="Search publications">
         <select id="pub-year" aria-label="Filter by year"></select>
       </div>
       <div id="pub-list"></div>

@@ -30,7 +30,7 @@ const MEMBERS = [
     group: "pi",
     email: "lavigne@imbb.forth.gr",
     photo: "", // e.g. "images/lavigne.jpg"
-    bio: "Matthieu runs the lab within the Gene Regulation & Epigenetics programme at IMBB-FORTH. He's fascinated by what RNA polymerase II gets up to on our genes, how cells keep their DNA safe, and how gene networks decide a cell's fate. To get at those questions he mixes biochemistry, lots of sequencing and a healthy dose of computational modelling.",
+    bio: "Matthieu Lavigne leads the lab within the Gene Regulation & Epigenetics programme at IMBB-FORTH. His research addresses RNA polymerase II transcription dynamics, genome maintenance under stress and the gene regulatory networks that shape cell fate, combining time- and space-resolved biochemistry, next-generation sequencing and computational modelling.",
   },
   {
     name: "Dimitris Tzanos",
