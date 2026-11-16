@@ -15,7 +15,7 @@
       <section class="page-head">
         <div>
           <h1>Publications</h1>
-          <p>Selected publications from the lab. A complete, up-to-date list is available on <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Lavigne+MD&amp;sort=date" target="_blank" rel="noopener">PubMed</a>.</p>
+          <p>Publications by Matthieu Lavigne and the lab, imported from PubMed. The most up-to-date record is always on <a href="https://pubmed.ncbi.nlm.nih.gov/?term=Lavigne+MD&amp;sort=date" target="_blank" rel="noopener">PubMed</a>.</p>
         </div>
         <svg viewBox="0 0 170 170" aria-hidden="true">
           <circle cx="85" cy="85" r="78" fill="var(--sun-soft)"/>
@@ -26,15 +26,22 @@
         </svg>
       </section>
 
+      <section style="padding-top:0">
+        <h2>Selected publications</h2>
+        <p class="section-sub" id="selected-note"></p>
+        <div id="pub-selected"></div>
+      </section>
+
+      <h2>All publications</h2>
       <div class="charts">
         <div class="card chart-card">
           <h3>Publications per year</h3>
-          <p style="margin-bottom:.8rem">Each block is one publication, coloured by journal. Select a bar to filter by year.</p>
+          <p style="margin-bottom:.8rem">Each block is one publication. Select a bar to filter the list below by year.</p>
           <div class="chart" id="chart-years"></div>
         </div>
         <div class="card chart-card">
-          <h3>By journal</h3>
-          <p style="margin-bottom:.8rem">Distribution of selected publications</p>
+          <h3>Most frequent journals</h3>
+          <p style="margin-bottom:.8rem">Number of publications per journal</p>
           <div class="chart" id="chart-journals"></div>
         </div>
       </div>

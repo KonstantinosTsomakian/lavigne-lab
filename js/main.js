@@ -56,23 +56,30 @@
     return `<div class="avatar" aria-hidden="true" style="background:linear-gradient(135deg,${PALETTE[i]},${PALETTE[j]})">${esc(initials(m.name))}</div>`;
   };
 
-  // Journal colours (stable per journal)
+  // Selected = journal impact factor >= threshold (see data.js), plus manual overrides
   const journals = [...new Set(PUBLICATIONS.map((p) => p.journal))];
-  const jColor = (j) => PALETTE[journals.indexOf(j) % PALETTE.length];
+  const isSelected = (p) => !SELECTED_EXCLUDE.includes(p.pmid) &&
+    (SELECTED_EXTRA.includes(p.pmid) || (JOURNAL_IF[p.journal] ?? 0) >= SELECTED_IF_THRESHOLD);
+  const SELECTED = PUBLICATIONS.filter(isSelected).sort((a, b) => b.year - a.year);
+  const C_SEL = "#1f6f78", C_OTHER = "#b8a27a";
+  const pColor = (p) => (isSelected(p) ? C_SEL : C_OTHER);
 
   const pubHTML = (p) => {
     const link = p.doi ? `https://doi.org/${p.doi}` : `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(p.title)}`;
+    const pubmed = p.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${p.pmid}/` : link;
     const authors = esc(p.authors).replace(/Lavigne MD/g, "<b>Lavigne MD</b>");
-    const c = jColor(p.journal);
+    const c = pColor(p);
     return `<div class="card pub reveal">
       <div class="stripe" style="background:${c}"></div>
       <div>
         <div class="title"><a href="${link}" target="_blank" rel="noopener">${esc(p.title)}</a></div>
         <div class="authors">${authors}</div>
         <div class="meta">
-          <span class="badge" style="background:${c}22;color:${c}">${esc(p.journal)}</span>
+          <span class="badge" style="background:${c}1f;color:${c}">${esc(p.journal)}</span>
+          ${p.type ? `<span class="badge" style="background:var(--border);color:var(--muted)">${esc(p.type)}</span>` : ""}
           <span>${p.details ? esc(p.details) + " · " : ""}${p.year}</span>
-          <a href="${link}" target="_blank" rel="noopener">${p.doi ? "DOI" : "PubMed"} ↗</a>
+          ${p.doi ? `<a href="${link}" target="_blank" rel="noopener">DOI ↗</a>` : ""}
+          <a href="${pubmed}" target="_blank" rel="noopener">PubMed ↗</a>
         </div>
       </div></div>`;
   };
@@ -101,10 +108,10 @@
     const years = PUBLICATIONS.map((p) => p.year);
     const nTech = document.querySelectorAll(".cloud .chip").length;
     const items = [
-      [PUBLICATIONS.length, "selected papers", "bg-coral"],
-      [journals.length, "journals", "bg-teal"],
+      [PUBLICATIONS.length, "publications", "bg-coral"],
+      [SELECTED.length, `in journals with impact factor ≥ ${SELECTED_IF_THRESHOLD}`, "bg-teal"],
       [nTech, "experimental and computational methods", "bg-sun"],
-      [`${Math.min(...years)}–${Math.max(...years)}`, "publication years shown", "bg-plum"],
+      [`${Math.min(...years)}–${Math.max(...years)}`, "publication record", "bg-plum"],
     ];
     stats.innerHTML = items.map(([v, l, c]) => `<div class="stat ${c} reveal"><b${String(v).length > 4 ? ' style="font-size:1.9rem;white-space:nowrap"' : ""}>${v}</b><span>${l}</span></div>`).join("");
   }
@@ -154,7 +161,11 @@
   const pubList = document.getElementById("pub-list");
   if (pubList) {
     drawYearChart(document.getElementById("chart-years"));
-    drawDonut(document.getElementById("chart-journals"));
+    drawJournalBars(document.getElementById("chart-journals"));
+    const selEl = document.getElementById("pub-selected");
+    if (selEl) selEl.innerHTML = SELECTED.map(pubHTML).join("");
+    const selNote = document.getElementById("selected-note");
+    if (selNote) selNote.textContent = `${SELECTED.length} papers in journals with a Journal Impact Factor of ${SELECTED_IF_THRESHOLD} or higher.`;
     const search = document.getElementById("pub-search");
     const yearSel = document.getElementById("pub-year");
     const years = [...new Set(PUBLICATIONS.map((p) => p.year))].sort((a, b) => b - a);
@@ -190,36 +201,33 @@
       svg += `<line x1="${pad}" x2="${W - pad}" y1="${gy}" y2="${gy}" stroke="currentColor" opacity=".08"/><text x="${pad - 8}" y="${gy + 4}" text-anchor="end">${g}</text>`;
     }
     years.forEach((y, i) => {
-      const pubs = PUBLICATIONS.filter((p) => p.year === y);
+      const pubs = PUBLICATIONS.filter((p) => p.year === y).sort((a, b) => isSelected(b) - isSelected(a));
       const x = pad + i * bw + bw * 0.18, w = bw * 0.64;
       let yy = H;
       pubs.forEach((p) => {
         const h = (H - 30) / max;
         yy -= h;
-        svg += `<rect class="bar" x="${x}" y="${yy + 2}" width="${w}" height="${h - 4}" rx="${Math.min(8, w / 3)}" fill="${jColor(p.journal)}"
+        svg += `<rect class="bar" x="${x}" y="${yy + 2}" width="${w}" height="${h - 4}" rx="${Math.min(4, w / 3)}" fill="${pColor(p)}"
           style="cursor:pointer" onclick="__filterYear(${y})"><title>${esc(p.title)} (${esc(p.journal)})</title></rect>`;
       });
       if (years.length <= 14 || i % 2 === 0) svg += `<text x="${x + w / 2}" y="${H + 18}" text-anchor="middle">${y}</text>`;
     });
-    el.innerHTML = svg + `</svg>`;
+    el.innerHTML = svg + `</svg>` +
+      `<div class="donut-legend" style="display:flex;gap:1.2rem;margin-top:.4rem"><span style="display:flex;align-items:center;gap:.4rem"><i style="background:${C_SEL};width:12px;height:12px;border-radius:3px;display:inline-block"></i>Selected (IF ≥ ${SELECTED_IF_THRESHOLD})</span><span style="display:flex;align-items:center;gap:.4rem"><i style="background:${C_OTHER};width:12px;height:12px;border-radius:3px;display:inline-block"></i>Other</span></div>`;
   }
 
-  function drawDonut(el) {
+  function drawJournalBars(el) {
     if (!el) return;
-    const counts = journals.map((j) => [j, PUBLICATIONS.filter((p) => p.journal === j).length]).sort((a, b) => b[1] - a[1]);
-    const total = PUBLICATIONS.length, R = 60, r = 36, cx = 75, cy = 75;
-    let a0 = -Math.PI / 2, paths = "";
-    counts.forEach(([j, n]) => {
-      const a1 = a0 + (n / total) * Math.PI * 2 - 0.03;
-      const large = a1 - a0 > Math.PI ? 1 : 0;
-      const p = (rad, ang) => `${cx + rad * Math.cos(ang)} ${cy + rad * Math.sin(ang)}`;
-      paths += `<path d="M${p(R, a0)} A${R} ${R} 0 ${large} 1 ${p(R, a1)} L${p(r, a1)} A${r} ${r} 0 ${large} 0 ${p(r, a0)}Z" fill="${jColor(j)}"><title>${esc(j)}: ${n}</title></path>`;
-      a0 = a1 + 0.03;
-    });
-    el.innerHTML = `<div class="donut-wrap"><svg viewBox="0 0 150 150" role="img" aria-label="Papers by journal">${paths}
-      <text x="75" y="74" text-anchor="middle" style="font-family:'Source Serif 4',serif;font-size:26px;font-weight:600;fill:var(--text)">${total}</text>
-      <text x="75" y="92" text-anchor="middle">papers</text></svg>
-      <ul class="donut-legend">${counts.map(([j, n]) => `<li><i style="background:${jColor(j)}"></i>${esc(j)} <b>&nbsp;${n}</b></li>`).join("")}</ul></div>`;
+    const counts = journals.map((j) => [j, PUBLICATIONS.filter((p) => p.journal === j).length])
+      .sort((a, b) => b[1] - a[1] || (JOURNAL_IF[b[0]] ?? 0) - (JOURNAL_IF[a[0]] ?? 0)).slice(0, 7);
+    const max = counts[0][1];
+    el.innerHTML = `<div style="display:grid;gap:.55rem">${counts.map(([j, n]) => {
+      const sel = (JOURNAL_IF[j] ?? 0) >= SELECTED_IF_THRESHOLD, c = sel ? C_SEL : C_OTHER;
+      return `<div style="display:grid;grid-template-columns:1fr auto;gap:.2rem .6rem;font-size:.86rem">
+        <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(j)}">${esc(j)}</span><b>${n}</b>
+        <span style="grid-column:1/-1;height:8px;border-radius:4px;background:var(--border)"><span style="display:block;height:100%;width:${(n / max) * 100}%;background:${c};border-radius:4px"></span></span>
+      </div>`; }).join("")}</div>
+      <p style="font-size:.82rem;margin-top:.9rem">${PUBLICATIONS.length} publications across ${journals.length} journals.</p>`;
   }
 
   // ---------- News ----------
